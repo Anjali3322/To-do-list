@@ -1,22 +1,28 @@
 
+let editTask = null;
 function addList(){
-    let addNewList = document.createElement("li")
-    // let checkbox = document.createElement("input")
-    // checkbox.type = checkbox
-    let list = document.getElementById("itemList")
-    if(input.value==="") 
-    //     {    //     alert("type something")    // }
+    if(editTask !== null){
+        editTask.innerText = input.value;
+        editTask = null;
+        input.value = "";
         return;
-    // addNewList.appendChild("checkbox")
-    list.appendChild(addNewList)
+    }
+    let addNewList = document.createElement("li")
+    let task = document.getElementById("itemList")
+    let taskContent = document.createElement("p")
     
-    addNewList.textContent = document.getElementById("input").value
+    taskContent.innerText = input.value
+    if(input.value==="") 
+        return;
+    task.appendChild(addNewList)
+    addNewList.appendChild(taskContent)
     document.getElementById("input").value = ""
+     
 
     let delEditBtn = document.createElement("div")
     addNewList.appendChild(delEditBtn)
     deleteButton(delEditBtn)
-    editButton(delEditBtn)
+    editButton(taskContent)
 
 function deleteButton(delEditBtn){
     let deleteBtn = document.createElement("button")
@@ -27,13 +33,15 @@ function deleteButton(delEditBtn){
     addNewList.remove()
     }
 }
-function editButton(delEditBtn){
+function editButton(taskContent){
     let editBtn = document.createElement("button")
     editBtn.textContent = "edit"
     editBtn.style.cssText ="color:red; border:none; background:transparent"
     delEditBtn.appendChild(editBtn)
     editBtn.onclick = function(){
-    input.value = addNewList.innerText
+    input.value = taskContent.innerText
+    // addNewList.innerText = ""
+    editTask = taskContent; 
     }
 }
 }
