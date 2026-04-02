@@ -1,4 +1,3 @@
-
 let editTask = null;
 function addList(){
     if(editTask !== null){
@@ -15,8 +14,8 @@ function addList(){
                 let checkbox = document.createElement("input");
                 let taskContent = document.createElement("p");
             let rightDiv = document.createElement("div");
-                let deleteBtn = document.createElement("button")
-                let editBtn = document.createElement("button")
+                let deleteBtn = document.createElement("button");
+                let editBtn = document.createElement("button");
     
 
     // APPEND ELEMENT
@@ -33,38 +32,35 @@ function addList(){
     taskContent.innerText = input.value
     if(input.value==="") 
         return;
-    task.appendChild(addNewList)
-    // addNewList.appendChild(taskContent)
+    task.appendChild(addNewList);
     document.getElementById("input").value = ""
 
     checkbox.onchange = function(){
         if(checkbox.checked){
-            taskContent.style.cssText = "text-decoration : line-through solid red 2px";
+            taskContent.style.cssText = "text-decoration : line-through solid grey 2px; color : grey";
         }
         else{
             taskContent.style.cssText = "text-decoration : none"
         }
+        updateCount();
     }
-     
-    // let delEditBtn = document.createElement("div")
-    // addNewList.appendChild(delEditBtn)
-    deleteButton(delEditBtn)
-    editButton(taskContent)
 
-function deleteButton(delEditBtn){
+    deleteButton(rightDiv)
+    editButton(taskContent, rightDiv)
 
+function deleteButton(rightDiv){
     deleteBtn.textContent = "delete"
     deleteBtn.style.cssText ="color:red; background:transparent; border: 2px solid red; padding:6px; border-radius:6px; cursor:pointer"
-    delEditBtn.appendChild(deleteBtn)
+    rightDiv.appendChild(deleteBtn)
     deleteBtn.onclick = function(){
-    addNewList.remove()
+    addNewList.remove();
+    updateCount();
     }
 }
-function editButton(taskContent){
-    
+function editButton(taskContent, rightDiv){
     editBtn.textContent = "edit"
     editBtn.style.cssText ="color:green; background:transparent; border: 2px solid green; padding:6px; border-radius:6px; cursor:pointer"
-    delEditBtn.appendChild(editBtn)
+    rightDiv.appendChild(editBtn)
     editBtn.onclick = function(){
     input.value = taskContent.innerText
     editTask = taskContent; 
@@ -72,17 +68,19 @@ function editButton(taskContent){
 }
 }
 
-// let compOne = document.createElement("p")
-// let idx = 0
-// for(p[0] of complete){
-//     p[0].innerText = `complete ${idx}`
-//     idx++
-// }
-// let compTwo = document.createElement("p")
-// let complete = document.getElementById("complete")
-// complete.insertAdjacentElement("afterbegin", compOne)
-// complete.insertAdjacentElement("beforeend", compTwo)
-// compOne.textContent = "complete"
-// compTwo.textContent = "Uncomplete"
+function updateCount() {
+    let allCheckboxes = document.querySelectorAll('li input[type="checkbox"]');
 
+    let completed = 0;
+    let total = allCheckboxes.length;
+
+    allCheckboxes.forEach(cb => {
+        if (cb.checked) completed++;
+    });
+
+    let uncompleted = total - completed;
+
+    document.getElementById("taskCount").innerText =
+        `Completed: ${completed} | Uncompleted: ${uncompleted}`;
+}
 
