@@ -58,6 +58,17 @@ li{
     margin-bottom: 10px;
     list-style: disc;
 }
+/* left side (checkbox + text) */
+li > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+}
+
+/* right side (buttons) */
+li > div:last-child {
+  display: flex;
+}
 /* #complete{
     display: flex;
     gap: 10px;
